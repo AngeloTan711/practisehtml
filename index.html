@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Do you love me?</title>
+  <style>
+    :root{--bg:#fff3f6;--card:#ffffff;--accent:#ff6384;--muted:#666}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;display:flex;min-height:100vh;align-items:center;justify-content:center;background:linear-gradient(180deg,#fff 0%,#fff3f6 100%);margin:0}
+    .card{width:360px;background:var(--card);border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,0.08);padding:22px;text-align:center}
+    h1{margin:0 0 8px;font-size:20px}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    .buttons{display:flex;gap:12px;justify-content:center;margin-bottom:18px}
+    button{flex:1;padding:10px 12px;border-radius:10px;border:0;font-weight:600;cursor:pointer}
+    .yes{background:linear-gradient(90deg,#ff8aa6,#ff6384);color:white}
+    .no{background:#f0f0f0;color:#333}
+    #letter{display:none;text-align:left;margin-top:8px;padding:14px;border-radius:10px;background:linear-gradient(180deg,#fff 0%,#fff6f8 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,0.6)}
+    .heart{font-size:40px;display:inline-block;transform:translateY(0);transition:transform .15s}
+    .pulse{animation:pulse 900ms infinite}
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+    .small{font-size:13px;color:#555;margin-top:10px}
+    .from{margin-top:12px;text-align:right;font-weight:600}
+    input[name="sender"]{width:100%;padding:8px;border-radius:8px;border:1px solid #e8e8e8;margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Do you love me?</h1>
+    <p class="lead">Click the button that matches your answer — there's a letter waiting.</p>
+
+    <div class="buttons">
+      <button class="yes" id="btnYes">Yes ❤️</button>
+      <button class="no" id="btnNo">No 💔</button>
+    </div>
+
+    <div class="small">Optional: sign the letter (your name)</div>
+    <input type="text" name="sender" id="sender" placeholder="Your name (optional)" />
+
+    <div id="letter">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div class="heart" id="heart">💖</div>
+        <strong>To my beautiful girlfriend Kristel,</strong>
+      </div>
+
+      <div id="message">
+        <p>Kristel —</p>
+        <p>Every day with you feels brighter. I love how you laugh, how you care, and how you make ordinary moments feel special. I admire your strength, your warm heart, and the little things you do that mean so much. Thank you for being you; I can't imagine this journey without you.</p>
+        <p>I promise to listen, to support you, and to keep choosing you — today and every day. You are loved more than words can fully say.</p>
+      </div>
+
+      <div class="from" id="signed">— Someone who loves you</div>
+    </div>
+
+    <div id="plea" style="display:none;margin-top:12px">
+      <p style="margin:0 0 8px">Oh — you said "No". That's okay. Here's a little reminder:</p>
+      <div style="font-size:20px">Love me? <span class="heart" id="heart2">❤️</span></div>
+    </div>
+  </div>
+
+  <script>
+    const btnYes = document.getElementById('btnYes');
+    const btnNo = document.getElementById('btnNo');
+    const letter = document.getElementById('letter');
+    const plea = document.getElementById('plea');
+    const heart = document.getElementById('heart');
+    const heart2 = document.getElementById('heart2');
+    const senderInput = document.getElementById('sender');
+    const signed = document.getElementById('signed');
+
+    function openLetter() {
+      plea.style.display = 'none';
+      letter.style.display = 'block';
+      heart.classList.add('pulse');
+      updateSignature();
+    }
+
+    function showPlea() {
+      letter.style.display = 'none';
+      plea.style.display = 'block';
+      heart2.classList.add('pulse');
+      // gently nudge to try again by showing the letter after a short pause
+      setTimeout(() => {
+        // reveal the letter anyway
+        openLetter();
+      }, 1500);
+    }
+
+    function updateSignature() {
+      const name = senderInput.value.trim();
+      signed.textContent = name ? '— ' + name : '— Someone who loves you';
+    }
+
+    btnYes.addEventListener('click', openLetter);
+    btnNo.addEventListener('click', showPlea);
+    senderInput.addEventListener('input', updateSignature);
+  </script>
+</body>
+</html>
