@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        h1 {
+            color: #ff4d6d;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .yes {
+            background: #ff4d6d;
+            color: white;
+        }
+
+        .yes:hover {
+            background: #ff1f4d;
+            transform: scale(1.1);
+        }
+
+        .no {
+            background: #ddd;
+            color: #333;
+        }
+
+        .no:hover {
+            transform: scale(0.9);
+        }
+
+        .message {
+            margin-top: 20px;
+            color: #ff4d6d;
+            font-weight: bold;
+            min-height: 24px;
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10%);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110%);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1>Kristel 💖</h1>
+        <p>Will you be my Valentine?</p>
+
+        <div class="buttons">
+            <button class="yes" onclick="sayYes()">Yes 💘</button>
+            <button class="no" onclick="sayNo()">No 😐</button>
+        </div>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+
+    <script>
+        const messages = [
+            "Are you sure? 🥺",
+            "Think again 😏",
+            "That button seems suspicious...",
+            "No is not an option 😌",
+            "Come onnnn 💕",
+            "I know you want to say yes 😘"
+        ];
+
+        let noCount = 0;
+
+        function sayNo() {
+            const msg = document.getElementById("message");
+            msg.textContent = messages[noCount % messages.length];
+            noCount++;
+
+            // playful loop back
+            setTimeout(() => {
+                msg.textContent = "So... will you be my Valentine? 💖";
+            }, 1500);
+        }
+
+        function sayYes() {
+            document.body.innerHTML = `
+        <div style="
+            height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-direction:column;
+            background: linear-gradient(135deg, #ff4d6d, #ffb3c1);
+            color:white;
+            text-align:center;
+            font-family:'Segoe UI', sans-serif;
+            padding: 20px;
+        ">
+            <h1 style="font-size:48px; margin-bottom:10px;">YAYYY 💘</h1>
+
+            <p style="font-size:22px; max-width:600px; line-height:1.6;">
+                Kristel, from the moment you came into my life, everything felt warmer,
+                brighter, and happier. You make ordinary days feel special just by being you.
+            </p>
+
+            <p style="font-size:22px; max-width:600px; line-height:1.6;">
+                Thank you for your love, your patience, your laughter, and every little moment
+                we share together. I’m so lucky to call you mine.
+            </p>
+
+            <p style="font-size:26px; font-weight:bold; margin-top:20px;">
+                Happy Valentine’s Day 💖  
+                I choose you — today and always 😘
+            </p>
+
+            <p style="margin-top:30px; font-size:18px; opacity:0.9;">
+                With all my love, <br>
+                ❤️
+            </p>
+        </div>
+    `;
+            createHearts();
+        }
+    </script>
+
+
+</body>
+
+</html>
